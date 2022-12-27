@@ -3,6 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 //test
+Route::get('/', function () {
+    return view('home');
+});
+Route::get('/test', function () {
+    return view('welcome');
+});
 Route::group(['namespace' => 'Admin', 'prefix' => "admin"], function () {
     Route::get('/login', 'AuthController@login');
     Route::post('/login', 'AuthController@postLogin');
