@@ -1,0 +1,101 @@
+Website
+display product
+filter product  category() brand
+Cart
+Checkout (order)
+profile (change passwrod , change user info)
+product rating review
+
+
+Admin
+CAtegory Brand CRUD
+Supplier
+Product CRUD
+Product Buy Tran
+Product Remove Tran
+Order
+Income
+Outcome
+Dashboard (user, below 3 product , income outcome chart,order )
+
+
+
+
+
+users
+=====
+id      name        email       password    image
+
+
+admin
+======
+id      name        email   password
+
+
+supplier
+========
+id      name        image       phone       description (nullable)
+
+category
+=========
+id      slug        name            image
+1       uniq-shirt  T Shirt         a
+
+brand
+======
+id      slug        name
+
+
+product
+========
+id   brand_id       supplier_id    name       image      description         stock_qty       sale_price      discounted_price
+                                                                                 1               3000            35000
+
+product_reviwe
+===============
+id      product_id      user_id     rating(int)         reivew(text)
+
+
+ဒီ table ထဲ dataထည့်မယ်ဆိုရင်  product.stock_qty ကို သွားတိုးပေးဖို့လိုတယ်။
+product_add_transaction
+========================
+product_id      supplier_id     stock_qty       description(null)
+1               1                  5                some
+
+product_remove_transaction
+========================
+product_id      stock_qty       description(null)
+1                   ၁                ပျက်   ပျောက်
+
+
+income
+=======
+id   title   amount      date    description(null)
+
+outcome
+=======
+id   title    amount      date    description(null)
+
+
+cart
+====
+id      user_id         product_id      stock_qty
+
+
+order
+=====
+id      user_id         product_id      stock_qty       status(pending ,succes,reject)         payment_screenshot    shipping_address        user_phone
+
+
+
+product_category
+=================
+product_id      category_id
+
+
+
+
+
+
+
+
