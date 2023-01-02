@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Brand;
+use App\Models\Category;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
+        View::share('category', Category::withCount('product')->get());
+        View::share('brand', Brand::withCount('product')->get());
     }
 }

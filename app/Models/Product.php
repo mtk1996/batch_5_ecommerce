@@ -11,6 +11,7 @@ class Product extends Model
     protected $fillable = [
         'brand_id', 'supplier_id', 'name', 'image',
         'description', 'stock_qty', 'sale_price', 'discounted_price',
+        'slug'
     ];
 
     protected $appends = ['image_url'];

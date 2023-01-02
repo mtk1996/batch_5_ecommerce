@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\ProductAddTransaction;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -67,6 +68,7 @@ class ProductController extends Controller
             'brand_id' => $request->brand_id,
             'supplier_id' => $request->supplier_id,
             'name' => $request->name,
+            'slug' => Str::slug($request->name) . uniqid(),
             'description' => $request->description,
             'stock_qty' => $request->qty,
             'sale_price' => $request->sale_price,
