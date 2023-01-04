@@ -17,6 +17,10 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{asset('web_assets/css/argon.min.css')}}">
     <link rel="stylesheet" href="{{asset('web_assets/css/style.css')}}">
+    {{-- toastify --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    @yield('css')
 </head>
 
 <body>
@@ -57,9 +61,17 @@
                                 Account
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                @guest
+                                <a class="dropdown-item" href="{{url('/login')}}">Login </a>
+                                <a class="dropdown-item" href="{{url('/register')}}">Register</a>
+                                @endguest
+
+                                @auth
+                                <a class="dropdown-item" href="{{url('/profile')}}">Profile</a>
+                                <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
+                                @endauth
+
+
                             </div>
                         </div>
                     </div>
@@ -83,10 +95,19 @@
             <h1 class="text-center text-white">Welcome From M-Commerce</h1>
             <small class="">M-Commerce is Develop by mmcoder.com and for educational purpose...</small>
 
+            @guest
             <div class="mt-5">
-                <a href="" class="btn btn-dark">Login</a>
-                <a href="" class="btn btn-outline-dark text-white">Register</a>
+                <a href="{{url('/login')}}" class="btn btn-dark">Login</a>
+                <a href="{{url('/register')}}" class="btn btn-outline-dark text-white">Register</a>
             </div>
+            @endguest
+
+            @auth
+            <h1 class="text-white">
+                Welcome {{auth()->user()->name}}
+            </h1>
+            @endauth
+
         </div>
     </div>
 
@@ -105,7 +126,33 @@
     </script>
 
     <script src="{{asset('web_assets/js/argon.min.js')}}"></script>
+    {{-- toastify --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+    <script>
+        $(function(){
+            @if(session()->has('error'))
+            Toastify({
+                text:"{{session('error')}}",
+                style: {
+                    background: "linear-gradient(to right, red, red)",
+                },
+            }).showToast();
+            @endif
+
+
+            @if(session()->has('success'))
+            Toastify({
+                text:"{{session('success')}}",
+                style: {
+                    background: "linear-gradient(to right, #2DCE89, #2DCE89)",
+                },
+            }).showToast();
+            @endif
+        });
+    </script>
+
+    @yield('script')
 </body>
 
 </html>

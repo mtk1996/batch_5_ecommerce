@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PageController@home');
 Route::get('/products', 'PageController@allProduct');
 
+//auth
+Route::get('/login', 'AuthController@showLogin');
+Route::post('/login', 'AuthController@login');
+Route::get('/register', 'AuthController@showRegister');
+Route::post('/register', 'AuthController@register');
+Route::get('/logout', 'AuthController@logout');
+
 Route::get('/test', function () {
 });
 
