@@ -45,4 +45,14 @@ class PageController extends Controller
 
         return view('product.all', compact('product'));
     }
+
+    public function productDetail($slug)
+    {
+        $findProduct = Product::where('slug', $slug)->first();
+        if (!$findProduct) {
+            return redirect('/')->with('error', 'Product Not Found.');
+        }
+        $product_detail = $findProduct;
+        return view('product.detail', compact('product_detail'));
+    }
 }

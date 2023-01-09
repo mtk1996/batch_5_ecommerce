@@ -47,7 +47,7 @@
                         <a href="#" class="btn btn-outline-dark cart-container">
 
                             <i class="fas text-danger  fa-shopping-basket fs-1"></i>
-                            <span class="cart-no bg-danger text-white">10</span>
+                            <span class="cart-no bg-danger text-white" id="btnCart">0</span>
                         </a>
 
                     </div>
@@ -83,8 +83,8 @@
                                 Language
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">မြန်မာ</a>
-                                <a class="dropdown-item" href="#">English</a>
+                                <a class="dropdown-item" href="{{url('/lang/mm')}}">မြန်မာ</a>
+                                <a class="dropdown-item" href="{{url('/lang/en')}}">English</a>
                             </div>
                         </div>
                     </div>
@@ -92,8 +92,8 @@
             </div>
         </div>
         <div class="mt-5 text-center p-5">
-            <h1 class="text-center text-white">Welcome From M-Commerce</h1>
-            <small class="">M-Commerce is Develop by mmcoder.com and for educational purpose...</small>
+            <h1 class="text-center text-white">@lang('home.welcome') </h1>
+            <small class="">@lang('home.welcome_description')</small>
 
             @guest
             <div class="mt-5">
@@ -130,7 +130,35 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script>
+        //update cart qty
+        const btnCart = $('#btnCart');
+         const updateCartQty = cartQty=>{
+            btnCart.text(cartQty);
+        }
+
+        //toast message
+        const errorToast = message=>{
+            Toastify({
+                text:message,
+                style: {
+                    background: "linear-gradient(to right, red, red)",
+                },
+            }).showToast();
+        }
+
+        const successToast = message=>{
+            Toastify({
+                text:message,
+                style: {
+                    background: "linear-gradient(to right, #2DCE89, #2DCE89)",
+                },
+            }).showToast();
+        }
+
+
         $(function(){
+
+
             @if(session()->has('error'))
             Toastify({
                 text:"{{session('error')}}",

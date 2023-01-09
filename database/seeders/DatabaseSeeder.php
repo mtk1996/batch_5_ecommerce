@@ -61,6 +61,7 @@ class DatabaseSeeder extends Seeder
             Category::create([
                 'slug' => $c['slug'],
                 'name' => $c['name'],
+                'mm_name' => 'မြန်မာ ',
                 'image' => $c['image'],
             ]);
         }

@@ -4,7 +4,6 @@
 <!-- category list -->
 <div class="w-80 mt-5">
     <div class="row mt-2">
-
         <!-- loop category -->
         @foreach ($category as $sCategory)
         <div class="col-12 col-sm-12 col-md-3 col-lg-3 border">
@@ -12,7 +11,7 @@
                 <div class="d-flex justify-content-around align-items-center p-3">
                     <img src="{{asset($sCategory->image_url)}}" width="100" alt="">
                     <div class="text-center">
-                        <p class="fs-2">{{$sCategory->name}}</p>
+                        <p class="fs-2">{{ app()->getLocale()== 'en'? $sCategory->name : $sCategory->mm_name}}</p>
                         <small class="">{{$sCategory->product_count}} items</small>
                     </div>
                 </div>

@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 //test
 Route::get('/', 'PageController@home');
+
 Route::get('/products', 'PageController@allProduct');
+Route::get('/product/{slug}', 'PageController@productDetail');
 
 //auth
 Route::get('/login', 'AuthController@showLogin');
@@ -31,4 +33,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => "admin"], function () {
         Route::resource('/product', 'ProductController');
         Route::resource('/product-transaction', 'ProductAddTransactionController');
     });
+});
+
+Route::get('/lang/{language}', function ($language) { //mm en
+    session()->put('language', $language);
+
+    $lang = $language == 'mm' ? 'မြန်မာ' : 'English';
+    return redirect()->back()->with('success', 'Language Switch To ' . $lang);
 });
