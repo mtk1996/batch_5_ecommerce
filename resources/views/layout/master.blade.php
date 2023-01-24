@@ -24,10 +24,7 @@
 </head>
 
 <body>
-    <!-- header -->
-    <style>
 
-    </style>
     <div class="header">
         <div class="w-80">
             <!-- navigation -->
@@ -47,7 +44,7 @@
                         <a href="#" class="btn btn-outline-dark cart-container">
 
                             <i class="fas text-danger  fa-shopping-basket fs-1"></i>
-                            <span class="cart-no bg-danger text-white" id="btnCart">0</span>
+                            <span class="cart-no bg-danger text-white" id="btnCart">{{$cart_qty}}</span>
                         </a>
 
                     </div>
@@ -135,6 +132,8 @@
          const updateCartQty = cartQty=>{
             btnCart.text(cartQty);
         }
+
+
 
         //toast message
         const errorToast = message=>{

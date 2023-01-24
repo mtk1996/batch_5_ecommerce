@@ -40,5 +40,9 @@
 @endsection
 
 @section('script')
+<script>
+    const PRODUCT_DETAIL = @json($product_detail);
+    const AUTH = @json(auth()->user());
+</script>
 <script src="{{asset('/js/ProductDetail.js')}}"></script>
 @endsection

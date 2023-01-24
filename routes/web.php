@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 //test
@@ -9,6 +11,16 @@ Route::get('/', 'PageController@home');
 
 Route::get('/products', 'PageController@allProduct');
 Route::get('/product/{slug}', 'PageController@productDetail');
+Route::get('/profile', 'ProfileController@showProfile');
+
+// api route
+Route::group(['prefix' => 'api'], function () {
+    Route::post('/add-to-cart', 'CartController@addToCart');
+    Route::get('/product-review/{product_slug}', 'ProductController@review');
+
+    Route::post('/make-review', 'ProductController@makeReview');
+});
+
 
 //auth
 Route::get('/login', 'AuthController@showLogin');
@@ -18,6 +30,7 @@ Route::post('/register', 'AuthController@register');
 Route::get('/logout', 'AuthController@logout');
 
 Route::get('/test', function () {
+    return Brand::paginate(2);
 });
 
 Route::group(['namespace' => 'Admin', 'prefix' => "admin"], function () {
@@ -40,4 +53,8 @@ Route::get('/lang/{language}', function ($language) { //mm en
 
     $lang = $language == 'mm' ? 'မြန်မာ' : 'English';
     return redirect()->back()->with('success', 'Language Switch To ' . $lang);
+});
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
 });

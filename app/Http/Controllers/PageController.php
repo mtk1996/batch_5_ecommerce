@@ -48,11 +48,14 @@ class PageController extends Controller
 
     public function productDetail($slug)
     {
-        $findProduct = Product::where('slug', $slug)->first();
+        $findProduct = Product::where('slug', $slug)
+            ->with('brand', 'category')
+            ->first();
         if (!$findProduct) {
             return redirect('/')->with('error', 'Product Not Found.');
         }
         $product_detail = $findProduct;
+
         return view('product.detail', compact('product_detail'));
     }
 }
