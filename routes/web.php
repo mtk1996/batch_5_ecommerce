@@ -19,6 +19,13 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/product-review/{product_slug}', 'ProductController@review');
 
     Route::post('/make-review', 'ProductController@makeReview');
+
+    Route::get('/cart', 'ProfileController@cart');
+    Route::post('/remove-cart', 'ProfileController@removeCart');
+    Route::post('/cart-qty/add', 'ProfileController@addCartQty');
+
+
+    Route::post('/change-password', 'ProfileController@changePassword');
 });
 
 

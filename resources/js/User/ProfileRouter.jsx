@@ -15,6 +15,9 @@ const ProfileRouter = () => {
                 <Link to={"/order"} className="btn btn-dark">
                     Order
                 </Link>
+                <Link to={"/password"} className="btn btn-dark">
+                    Change Password
+                </Link>
             </div>
             <Routes>
                 <Route path="/" element={<Cart />} />
