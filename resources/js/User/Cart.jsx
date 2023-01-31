@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 
 const Cart = () => {
     const [cart, setCart] = useState([]);
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
+    const [image, setImage] = useState("");
     useEffect(() => {
         axios.get("/api/cart").then((res) => {
             setCart(res.data);
@@ -18,6 +21,14 @@ const Cart = () => {
         });
     };
 
+    const total = () => {
+        var totalPrice = 0;
+        cart.map((sCart) => {
+            totalPrice += sCart.stock_qty * sCart.product.sale_price;
+        });
+        return totalPrice;
+    };
+
     const addCartQty = (id) => {
         axios.post("/api/cart-qty/add", { id }).then((d) => {
             if (d.data === "success") {
@@ -29,6 +40,23 @@ const Cart = () => {
                 });
                 setCart(newCart);
                 successToast("Qty Updated.");
+            }
+        });
+    };
+
+    const chooseImage = (e) => {
+        setImage(e.target.files[0]);
+    };
+
+    const makeOrder = () => {
+        const frmData = new FormData();
+        frmData.append("phone", phone);
+        frmData.append("address", address);
+        frmData.append("image", image);
+        axios.post("/api/make-order", frmData).then((d) => {
+            if (d.data == "success") {
+                setCart([]);
+                successToast("Order Success.");
             }
         });
     };
@@ -78,8 +106,47 @@ const Cart = () => {
                             </td>
                         </tr>
                     ))}
+                    <tr>
+                        <td colSpan={5}>
+                            <h5 className="text-center">Total</h5>
+                        </td>
+                        <td>
+                            <h5>{total()}mmk</h5>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+
+            <div className="card">
+                <div className="card-body">
+                    <div className="form-group">
+                        <label htmlFor="">Enter Phone</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="">Payment Screenshot </label>
+                        <input
+                            type="file"
+                            className="form-control"
+                            onChange={chooseImage}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="">Shipping Address </label>
+                        <textarea
+                            className="form-control"
+                            onChange={(e) => setAddress(e.target.value)}
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+            <button className="btn btn-dark" onClick={makeOrder}>
+                Order Now
+            </button>
         </div>
     );
 };

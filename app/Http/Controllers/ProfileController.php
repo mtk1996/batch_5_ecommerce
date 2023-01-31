@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,8 @@ class ProfileController extends Controller
 {
     public function showProfile()
     {
-        return view('user.profile');
+        $total = 10000;
+        return view('user.profile', compact('total'));
     }
 
     public function cart()
@@ -55,6 +57,30 @@ class ProfileController extends Controller
         User::where('id', auth()->id())->update([
             'password' => Hash::make($new),
         ]);
+        return 'success';
+    }
+
+
+    public function makeOrder(Request $request)
+    {
+        $file =  $request->file('image');
+        $file_name = uniqid() . $file->getClientOriginalName();
+        $file->move(public_path('/images'), $file_name);
+
+        $dbCarts = Cart::where('user_id', auth()->id())->get();
+        foreach ($dbCarts as $sCart) {
+            Order::create([
+                'user_id' => auth()->id(),
+                'product_id' => $sCart->product_id,
+                'stock_qty' => $sCart->stock_qty,
+                'payment_screenshot' => $file_name,
+                'shipping_address' => $request->address,
+                'phone' => $request->phone,
+            ]);
+        }
+
+        Cart::where('user_id', auth()->id())->delete();
+
         return 'success';
     }
 }

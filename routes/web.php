@@ -24,6 +24,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/remove-cart', 'ProfileController@removeCart');
     Route::post('/cart-qty/add', 'ProfileController@addCartQty');
 
+    Route::post('/make-order', 'ProfileController@makeOrder');
+    Route::get('/order', 'OrderController@all');
 
     Route::post('/change-password', 'ProfileController@changePassword');
 });
@@ -52,6 +54,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => "admin"], function () {
         Route::resource('/category', 'CategoryController');
         Route::resource('/product', 'ProductController');
         Route::resource('/product-transaction', 'ProductAddTransactionController');
+
+        Route::get('/order', 'OrderController@index');
+        Route::get('/order-status', 'OrderController@changeStatus');
     });
 });
 
